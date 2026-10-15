@@ -63,7 +63,14 @@ function Pillar({ word, detail, at, progress }: { word: string; detail: string; 
  * Velocity365's speedometer, rebuilt from its logo. Scrolling sweeps the needle and fills the
  * dial; the readout climbs to 365, one for every day of the year-round program.
  */
-export function VelocityGauge() {
+export function VelocityGauge({
+  headingLevel = "h2",
+  cta = { href: "/velocity365/", label: "Explore Velocity365" },
+}: {
+  headingLevel?: "h1" | "h2";
+  cta?: { href: string; label: string };
+}) {
+  const Heading = headingLevel;
   const ref = useRef<HTMLElement>(null);
   const dial = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -86,7 +93,7 @@ export function VelocityGauge() {
       aria-labelledby="velocity-title"
       className={`relative bg-night ${pinned ? "h-[220dvh]" : ""}`}
     >
-      <div className={`${pinned ? "sticky top-0 min-h-dvh" : ""} flex items-center overflow-hidden py-20 lg:py-16`}>
+      <div className={`${pinned ? "sticky top-0 min-h-dvh" : ""} flex items-center overflow-hidden pb-20 pt-[calc(var(--header-h)+3rem)] lg:pb-12 lg:pt-[calc(var(--header-h)+1rem)]`}>
         <div
           aria-hidden
           className="absolute inset-x-0 bottom-0 h-2/3 bg-[radial-gradient(ellipse_at_50%_100%,rgb(226_69_47/0.28),transparent_65%)]"
@@ -105,9 +112,9 @@ export function VelocityGauge() {
               />
               <p className="font-mono text-xs uppercase tracking-[0.24em] text-ember">{velocity.tagline}</p>
             </div>
-            <h2 id="velocity-title" className="display mt-2 text-[clamp(3.5rem,8vw,6.5rem)] text-chalk">
+            <Heading id="velocity-title" className="display mt-2 text-[clamp(3.5rem,8vw,6.5rem)] text-chalk">
               Velocity<span className="text-fire">365</span>
-            </h2>
+            </Heading>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-chalk/85">{velocity.description}</p>
             <ul className="mt-8 grid gap-6 sm:grid-cols-3 sm:gap-5">
               {velocity.pillars.map((p, i) => (
@@ -115,8 +122,8 @@ export function VelocityGauge() {
               ))}
             </ul>
             <div className="mt-9">
-              <ButtonLink href="/velocity365/" variant="fire">
-                Explore Velocity365 <ArrowRight size={18} weight="bold" aria-hidden />
+              <ButtonLink href={cta.href} variant="fire">
+                {cta.label} <ArrowRight size={18} weight="bold" aria-hidden />
               </ButtonLink>
             </div>
           </div>

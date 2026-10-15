@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/*
+  Pinnacle Baseball design tokens.
+  Colors come from the academy's logo: periwinkle "sky" (#91b3e0) and indigo (#2a2e6b),
+  set on a deep night-navy field. The site is locked to this one dark theme on purpose:
+  it is the brand (the jerseys, the facility walls, the logo all live on navy).
+  "fire" belongs to the Velocity365 sub-brand only.
+*/
+@theme {
+  --color-night: #060a1a;
+  --color-navy: #0b1130;
+  --color-navy-2: #111940;
+  --color-navy-3: #1b2453;
+  --color-indigo: #2a2e6b;
+  --color-sky: #91b3e0;
+  --color-sky-hi: #c3d6f1;
+  --color-chalk: #f3f5f9;
+  --color-mist: #aab4cf;
+  --color-haze: #7d88a8;
+  --color-fire: #e2452f;
+  --color-ember: #ff8a3d;
+
+  --font-display: var(--font-big-shoulders), "Arial Narrow", system-ui, sans-serif;
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* z-index scale: header 40, mobile bar 40, menu 50, grain 60, skip link 70 */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --header-h: 4.25rem;
+  }
+
+  html {
+    background: var(--color-navy);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: var(--color-navy);
+    color: var(--color-chalk);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-sky);
+    color: var(--color-night);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-sky);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Condensed athletic display type. Big Shoulders at its largest optical size. */
+  .display {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 72;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.88;
+  }
+
+  .stat {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Film grain on a fixed, non-interactive layer so it never repaints with scroll. */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Baseball stitch rule: two rows of angled red stitches, used as a section divider. */
+  .stitch-rule {
+    height: 14px;
+    background-image:
+      repeating-linear-gradient(
+        60deg,
+        transparent 0 7px,
+        rgb(226 69 47 / 0.85) 7px 9px,
+        transparent 9px 18px
+      ),
+      repeating-linear-gradient(
+        -60deg,
+        transparent 0 7px,
+        rgb(226 69 47 / 0.85) 7px 9px,
+        transparent 9px 18px
+      );
+    background-size: 18px 7px;
+    background-position:
+      0 0,
+      0 7px;
+    background-repeat: repeat-x;
+  }
+
+  /* Chalk-line frame corners, like the batter's box. */
+  .box-corners {
+    position: relative;
+  }
+  .box-corners::before,
+  .box-corners::after {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-color: var(--color-chalk);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .box-corners::before {
+    top: -10px;
+    left: -10px;
+    border-top: 2px solid;
+    border-left: 2px solid;
+  }
+  .box-corners::after {
+    bottom: -10px;
+    right: -10px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

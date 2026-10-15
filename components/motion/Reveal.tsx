@@ -28,14 +28,19 @@ export function Reveal({ children, className, delay = 0, y = 28, as = "div" }: P
   );
 }
 
-/** Reveals a headline line by line, each line rising out of a mask. */
+/**
+ * Reveals a headline line by line, each line rising out of a mask. The heading itself is
+ * observed (the masked lines start out of view, so they cannot trigger themselves).
+ */
 export function LineReveal({
   lines,
   className = "",
   lineClassName = "",
   delay = 0,
   as = "h2",
+  id,
 }: {
+  id?: string;
   lines: ReactNode[];
   className?: string;
   lineClassName?: string;
@@ -43,17 +48,22 @@ export function LineReveal({
   as?: "h1" | "h2" | "h3";
 }) {
   const reduce = useReducedMotion();
-  const Tag = as;
+  const Tag = motion[as];
   return (
-    <Tag className={className}>
+    <Tag
+      id={id}
+      className={className}
+      initial={reduce ? false : "hidden"}
+      whileInView="show"
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ staggerChildren: 0.09, delayChildren: delay }}
+    >
       {lines.map((line, i) => (
         <span key={i} className="block overflow-hidden pb-[0.06em]">
           <motion.span
             className={`block ${lineClassName}`}
-            initial={reduce ? false : { y: "105%" }}
-            whileInView={{ y: "0%" }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.9, delay: delay + i * 0.09, ease: [0.16, 1, 0.3, 1] }}
+            variants={{ hidden: { y: "105%" }, show: { y: "0%" } }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             {line}
           </motion.span>

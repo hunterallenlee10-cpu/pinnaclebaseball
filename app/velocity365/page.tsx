@@ -4,6 +4,8 @@ import { VelocityGauge } from "@/components/home/VelocityGauge";
 import { BookCTA } from "@/components/booking/BookCTA";
 import { Reveal } from "@/components/motion/Reveal";
 import { velocity } from "@/content/velocity";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Velocity365 Arm Strength Program",
@@ -22,6 +24,7 @@ export default function VelocityPage() {
 
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Velocity365", path: "/velocity365/" }])} />
       <VelocityGauge headingLevel="h1" cta={{ href: "/contact/?focus=velocity365#book", label: "Ask about Velocity365" }} />
 
       <section aria-labelledby="year-round-title" className="bg-night py-24 sm:py-32">

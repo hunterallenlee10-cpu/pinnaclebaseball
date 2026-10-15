@@ -8,6 +8,8 @@ import { Reveal } from "@/components/motion/Reveal";
 import { MapEmbed } from "@/components/ui/MapEmbed";
 import { BookCTA } from "@/components/booking/BookCTA";
 import { site } from "@/content/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "The Facility",
@@ -31,6 +33,7 @@ const photos = [
 export default function FacilityPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Facility", path: "/facility/" }])} />
       <PageHero
         title={["Inside the", <span key="b" className="text-sky">tunnel.</span>]}
         lead="Our indoor facility in Spotsylvania is where the work happens: turf tunnels, mounds and cages, open weekday evenings and weekend mornings."

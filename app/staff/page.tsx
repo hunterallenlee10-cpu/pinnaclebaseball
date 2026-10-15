@@ -5,6 +5,8 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/motion/Reveal";
 import { BookCTA } from "@/components/booking/BookCTA";
 import { staff, stowe } from "@/content/coach";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema, personSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Coaches & Staff",
@@ -19,6 +21,7 @@ export default function StaffPage() {
 
   return (
     <>
+      <JsonLd data={[breadcrumbSchema([{ name: "Staff", path: "/staff/" }]), personSchema()]} />
       <PageHero
         eyebrow={stowe.role}
         title={["Chris", <span key="b" className="text-sky">Stowe.</span>]}

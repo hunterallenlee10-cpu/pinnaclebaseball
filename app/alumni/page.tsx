@@ -6,6 +6,8 @@ import { Reveal } from "@/components/motion/Reveal";
 import { ProofBar } from "@/components/home/ProofBar";
 import { BookCTA } from "@/components/booking/BookCTA";
 import { alumni, statePlayersOfTheYear } from "@/content/alumni";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Alumni & Results",
@@ -17,6 +19,7 @@ export const metadata: Metadata = {
 export default function AlumniPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Alumni", path: "/alumni/" }])} />
       <PageHero
         title={["The", <span key="b" className="text-sky">Pipeline.</span>]}
         lead="More than 200 players Chris Stowe has coached have gone on to play college baseball. Since 2017, every player under his instruction has had the opportunity to play at the collegiate level."

@@ -6,6 +6,8 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { MobileBar } from "@/components/layout/MobileBar";
 import { site } from "@/content/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { businessSchema, websiteSchema } from "@/lib/schema";
 import "./globals.css";
 
 const display = Big_Shoulders({
@@ -69,6 +71,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <SiteFooter />
         <MobileBar />
+        <JsonLd data={[businessSchema(), websiteSchema()]} />
         <Analytics />
         <SpeedInsights />
       </body>

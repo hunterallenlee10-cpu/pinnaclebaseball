@@ -7,6 +7,8 @@ import { ProofBar } from "@/components/home/ProofBar";
 import { BookCTA } from "@/components/booking/BookCTA";
 import { stowe } from "@/content/coach";
 import { site } from "@/content/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "About the Academy",
@@ -51,6 +53,7 @@ const timeline = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "About", path: "/about/" }])} />
       <PageHero
         title={["Every player", "has something", <span key="c" className="text-sky">to gain.</span>]}
         lead={`Pinnacle Baseball was founded in ${site.founded} to make a positive difference in the development of players of all ages and skill levels, whatever teams they play on or leagues they play in.`}

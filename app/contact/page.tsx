@@ -6,6 +6,8 @@ import { LineReveal } from "@/components/motion/Reveal";
 import { MapEmbed } from "@/components/ui/MapEmbed";
 import { LessonRequest, LessonRequestSkeleton } from "@/components/booking/LessonRequest";
 import { site } from "@/content/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Book a Lesson",
@@ -17,6 +19,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Book a Lesson", path: "/contact/" }])} />
       <section id="book" aria-labelledby="contact-title" className="relative overflow-hidden pt-(--header-h)">
         <div
           aria-hidden

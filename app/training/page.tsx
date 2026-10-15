@@ -9,6 +9,8 @@ import { Reveal } from "@/components/motion/Reveal";
 import { BookCTA } from "@/components/booking/BookCTA";
 import { programs, upcomingEvents, type Program } from "@/content/programs";
 import { bookLabel } from "@/content/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema, servicesSchema } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Baseball Lessons & Training Programs",
@@ -58,6 +60,7 @@ function Gallery({ program }: { program: Program }) {
 export default function TrainingPage() {
   return (
     <>
+      <JsonLd data={[breadcrumbSchema([{ name: "Training", path: "/training/" }]), ...servicesSchema()]} />
       <PageHero
         title={["Training", <span key="b" className="text-sky">for all.</span>]}
         lead="Professional instruction for players of every age and skill level, whatever team or league they play in. Come to us, or we will come to you."

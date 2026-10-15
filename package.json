@@ -1,12 +1,16 @@
 {
-  "name": "app",
+  "name": "pinnacle-baseball",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "check": "tsc --noEmit && eslint .",
+    "a11y": "node scripts/a11y.mjs",
+    "shots": "node scripts/shots.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

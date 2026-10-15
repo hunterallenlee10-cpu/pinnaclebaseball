@@ -93,6 +93,7 @@ export default function TrainingPage() {
               quality={80}
               sizes="(min-width: 1024px) 42vw, 100vw"
               className="object-cover"
+              style={{ objectPosition: individual.image.position }}
             />
           </Reveal>
           <div className="flex flex-col gap-8">
@@ -240,7 +241,7 @@ export default function TrainingPage() {
         </Container>
       </section>
 
-      <BookCTA source="training" title="Find the right fit." image={{ src: "/images/lesson-mound.jpg", alt: "An instructor working with a young pitcher on the mound" }} />
+      <BookCTA source="training" title="Find the right fit." image={{ src: "/images/lesson-mound.jpg", alt: "An instructor working with a young pitcher on the mound", position: "50% 0%" }} />
     </>
   );
 }

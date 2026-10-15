@@ -5,7 +5,8 @@ export type Program = {
   summary: string;
   body: string;
   facts: { label: string; detail: string }[];
-  image: { src: string; alt: string; width: number; height: number };
+  /** `position` is the CSS object-position focal point, so crops keep faces in frame. */
+  image: { src: string; alt: string; width: number; height: number; position?: string };
   gallery: { src: string; alt: string; width: number; height: number }[];
   /** Value preselected in the lesson request form. */
   format: "individual" | "small-group" | "team" | "camp";
@@ -35,6 +36,7 @@ export const programs: Program[] = [
       alt: "An instructor working with a young pitcher on the mound inside the Pinnacle facility",
       width: 1550,
       height: 2048,
+      position: "50% 0%",
     },
     gallery: [
       { src: "/images/facility/receiving.jpg", alt: "A catcher receiving a pitch in the training tunnel", width: 585, height: 874 },
@@ -83,6 +85,7 @@ export const programs: Program[] = [
       alt: "A Pinnacle team in light blue jerseys posing on the field",
       width: 1800,
       height: 2400,
+      position: "50% 40%",
     },
     gallery: [
       { src: "/images/team.jpg", alt: "A Pinnacle team on the field", width: 1800, height: 2400 },

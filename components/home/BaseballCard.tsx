@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { useReducedMotion } from "@/components/hooks/useReducedMotion";
 import { ArrowsClockwise } from "@phosphor-icons/react";
 import { stowe } from "@/content/coach";
 
@@ -27,7 +28,7 @@ export function BaseballCard({ className = "" }: { className?: string }) {
     ],
   );
 
-  const onMove = (e: React.PointerEvent<HTMLButtonElement>) => {
+  const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (reduce || e.pointerType !== "mouse") return;
     const r = e.currentTarget.getBoundingClientRect();
     px.set((e.clientX - r.left) / r.width - 0.5);
@@ -42,13 +43,11 @@ export function BaseballCard({ className = "" }: { className?: string }) {
 
   return (
     <div className={`flex flex-col items-center gap-5 ${className}`}>
-      <motion.button
-        type="button"
+      {/* Clicking the card is a pointer convenience; the button below is the accessible control. */}
+      <motion.div
         onClick={() => setFlipped((f) => !f)}
         onPointerMove={onMove}
         onPointerLeave={onLeave}
-        aria-pressed={flipped}
-        aria-label={flipped ? "Show the front of Chris Stowe's rookie card" : "Flip Chris Stowe's rookie card to see his stats"}
         className="relative aspect-[374/500] w-full max-w-[340px] cursor-pointer [perspective:1400px]"
         style={reduce ? undefined : { rotateX: tiltX, rotateY: tiltY, transformPerspective: 1400 }}
       >
@@ -122,11 +121,17 @@ export function BaseballCard({ className = "" }: { className?: string }) {
             </span>
           </span>
         </motion.span>
-      </motion.button>
-      <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-haze">
+      </motion.div>
+      <button
+        type="button"
+        onClick={() => setFlipped((f) => !f)}
+        aria-pressed={flipped}
+        className="flex min-h-11 items-center gap-2 px-3 font-mono text-xs uppercase tracking-[0.18em] text-mist transition-colors hover:text-chalk"
+      >
         <ArrowsClockwise size={14} weight="bold" aria-hidden />
-        {flipped ? "Tap to flip back" : "Tap the card to flip it"}
-      </p>
+        {flipped ? "Flip back" : "Flip the card"}
+        <span className="sr-only">: Chris Stowe&apos;s 1997 rookie card and stats</span>
+      </button>
     </div>
   );
 }

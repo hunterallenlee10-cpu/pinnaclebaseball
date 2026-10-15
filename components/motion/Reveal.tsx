@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useReducedMotion } from "@/components/hooks/useReducedMotion";
 import type { ReactNode } from "react";
 
 type Props = {
@@ -48,6 +49,25 @@ export function LineReveal({
   as?: "h1" | "h2" | "h3";
 }) {
   const reduce = useReducedMotion();
+
+  // Page titles sit above the fold: animate them with CSS so they start at first paint.
+  if (as === "h1") {
+    return (
+      <h1 id={id} className={className}>
+        {lines.map((line, i) => (
+          <span key={i} className="block overflow-hidden pb-[0.06em]">
+            <span
+              className={`block animate-rise ${lineClassName}`}
+              style={{ animationDelay: `${Math.round((delay + i * 0.09) * 1000) + 60}ms` }}
+            >
+              {line}
+            </span>
+          </span>
+        ))}
+      </h1>
+    );
+  }
+
   const Tag = motion[as];
   return (
     <Tag

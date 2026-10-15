@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useReducedMotion } from "@/components/hooks/useReducedMotion";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import type { Program } from "@/content/programs";
 

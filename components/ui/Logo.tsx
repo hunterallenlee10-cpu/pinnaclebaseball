@@ -4,7 +4,7 @@ import Link from "next/link";
 /** Horizontal lockup for the header: the "P" home-plate mark plus the name set in display type. */
 export function LogoLockup({ className = "" }: { className?: string }) {
   return (
-    <Link href="/" className={`group flex items-center gap-3 ${className}`} aria-label="Pinnacle Baseball Academy, home">
+    <Link href="/" className={`group flex items-center gap-3 ${className}`}>
       <Image
         src="/brand/mark-on-dark.svg"
         alt=""
@@ -14,7 +14,7 @@ export function LogoLockup({ className = "" }: { className?: string }) {
         preload
       />
       <span className="flex flex-col leading-none">
-        <span className="display text-[1.6rem] tracking-[0.02em] text-chalk">Pinnacle</span>
+        <span className="display text-[1.6rem] tracking-[0.02em] text-chalk">Pinnacle</span>{" "}
         <span className="mt-0.5 font-mono text-[0.6rem] uppercase tracking-[0.28em] text-sky">Baseball Academy</span>
       </span>
     </Link>

@@ -2,12 +2,11 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useReducedMotion } from "@/components/hooks/useReducedMotion";
 import { ArrowRight } from "@phosphor-icons/react";
 import { ButtonLink } from "@/components/ui/Button";
 import { bookHref, bookLabel } from "@/content/site";
-
-const ease = [0.16, 1, 0.3, 1] as const;
 
 /*
   Scroll-linked transforms always span the full 0 to 1 range. Motion accelerates them with the
@@ -35,6 +34,8 @@ export function TunnelHero() {
   const line1Y = useTransform(line1, [0, 1], [40, 0]);
   const line2Y = useTransform(line2, [0, 1], [40, 0]);
   const line3Y = useTransform(line3, [0, 1], [24, 0]);
+  // Hidden (not just transparent) until the scroll reaches it, so a font swap cannot register as a layout shift.
+  const statementVisibility = useTransform(scrollYProgress, (v) => (v > 0.3 ? "visible" : "hidden"));
 
   return (
     <section
@@ -70,32 +71,13 @@ export function TunnelHero() {
         >
           <h1 id="hero-title" className="display text-[clamp(4.5rem,15vw,12.5rem)] leading-[0.82] text-chalk">
             <span className="block overflow-hidden">
-              <motion.span
-                className="block"
-                initial={reduce ? false : { y: "105%" }}
-                animate={{ y: "0%" }}
-                transition={{ duration: 1.1, delay: 0.15, ease }}
-              >
-                Find your
-              </motion.span>
+              <span className="block animate-rise [animation-delay:80ms]">Find your</span>
             </span>
             <span className="block overflow-hidden pb-[0.04em]">
-              <motion.span
-                className="block text-sky"
-                initial={reduce ? false : { y: "105%" }}
-                animate={{ y: "0%" }}
-                transition={{ duration: 1.1, delay: 0.27, ease }}
-              >
-                peak.
-              </motion.span>
+              <span className="block animate-rise text-sky [animation-delay:180ms]">peak.</span>
             </span>
           </h1>
-          <motion.div
-            className="mt-6 flex max-w-xl flex-col gap-7 sm:mt-8"
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.6, ease }}
-          >
+          <div className="mt-6 flex max-w-xl animate-lift flex-col gap-7 [animation-delay:350ms] sm:mt-8">
             <p className="text-lg leading-relaxed text-chalk/85 sm:text-xl">
               Private pitching, hitting and fielding lessons in Spotsylvania, Virginia, from a former first-round MLB
               draft pick.
@@ -108,11 +90,15 @@ export function TunnelHero() {
                 See Programs
               </ButtonLink>
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
         {!reduce && (
-          <div aria-hidden className="pointer-events-none absolute inset-0 grid place-items-center px-6 text-center">
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 grid place-items-center px-6 text-center"
+            style={{ visibility: statementVisibility }}
+          >
             <div className="flex flex-col items-center gap-2">
               <motion.p
                 className="display text-[clamp(2.75rem,8vw,7rem)] text-chalk"
@@ -133,7 +119,7 @@ export function TunnelHero() {
                 Pinnacle exists to put players on the path to theirs.
               </motion.p>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
 

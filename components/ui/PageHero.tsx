@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { Container } from "@/components/ui/Container";
-import { LineReveal, Reveal } from "@/components/motion/Reveal";
+import { LineReveal } from "@/components/motion/Reveal";
 
 type Props = {
   title: ReactNode[];
@@ -32,15 +32,11 @@ export function PageHero({ title, lead, eyebrow, image, children }: Props) {
             lines={title}
           />
           {lead && (
-            <Reveal delay={0.2} className="mt-7 max-w-2xl text-lg leading-relaxed text-mist sm:text-xl">
+            <p className="mt-7 max-w-2xl animate-lift text-lg leading-relaxed text-mist [animation-delay:250ms] sm:text-xl">
               {lead}
-            </Reveal>
+            </p>
           )}
-          {children && (
-            <Reveal delay={0.3} className="mt-9">
-              {children}
-            </Reveal>
-          )}
+          {children && <div className="mt-9 animate-lift [animation-delay:350ms]">{children}</div>}
         </Container>
         {image && (
           <div className="relative aspect-[4/3] lg:aspect-auto">

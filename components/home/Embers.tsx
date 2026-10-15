@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useReducedMotion } from "motion/react";
+import { useReducedMotion } from "@/components/hooks/useReducedMotion";
 
 /** Sparks drifting up from the bottom of the Velocity365 section. Runs only while visible. */
 export function Embers({ className = "" }: { className?: string }) {

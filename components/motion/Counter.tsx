@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { animate, useInView, useReducedMotion } from "motion/react";
+import { animate, useInView } from "motion/react";
+import { useReducedMotion } from "@/components/hooks/useReducedMotion";
 
 /**
  * Counts up to `value` once when scrolled into view. Writes to the DOM directly, no re-renders.

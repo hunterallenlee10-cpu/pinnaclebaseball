@@ -2,7 +2,8 @@
 
 import { useSearchParams } from "next/navigation";
 import { useActionState, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useReducedMotion } from "@/components/hooks/useReducedMotion";
 import { ArrowLeft, ArrowRight, CheckCircle, Phone, WarningCircle } from "@phosphor-icons/react";
 import { track } from "@vercel/analytics";
 import { Button } from "@/components/ui/Button";

@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useReducedMotion } from "@/components/hooks/useReducedMotion";
 import { ArrowRight, Quotes } from "@phosphor-icons/react";
 import type { Alum } from "@/content/alumni";
 import { QuoteDialog } from "@/components/alumni/QuoteDialog";
@@ -37,9 +38,13 @@ function AlumCard({ alum, onOpen }: { alum: Alum; onOpen: () => void }) {
         type="button"
         onClick={onOpen}
         className="mt-4 inline-flex w-fit items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-sky underline-offset-4 hover:underline after:absolute after:inset-0 after:content-['']"
-        aria-label={`Read ${alum.first} ${alum.last}'s full story`}
       >
-        Read the full story <ArrowRight size={14} weight="bold" aria-hidden />
+        Read the full story
+        <span className="sr-only">
+          {" "}
+          from {alum.first} {alum.last}
+        </span>
+        <ArrowRight size={14} weight="bold" aria-hidden />
       </button>
     </article>
   );

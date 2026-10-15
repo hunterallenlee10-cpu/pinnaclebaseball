@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { MobileBar } from "@/components/layout/MobileBar";
+import { MotionProvider } from "@/components/layout/MotionProvider";
 import { site } from "@/content/site";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { businessSchema, websiteSchema } from "@/lib/schema";
@@ -16,7 +17,7 @@ const display = Big_Shoulders({
   axes: ["opsz"],
   display: "swap",
   adjustFontFallback: false,
-  fallback: ["Arial Narrow", "Arial", "sans-serif"],
+  fallback: ["Display Fallback", "Arial", "sans-serif"],
 });
 
 const sans = Geist({
@@ -65,12 +66,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <SiteHeader />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <SiteFooter />
-        <MobileBar />
+        <MotionProvider>
+          <SiteHeader />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <SiteFooter />
+          <MobileBar />
+        </MotionProvider>
         <JsonLd data={[businessSchema(), websiteSchema()]} />
         <Analytics />
         <SpeedInsights />

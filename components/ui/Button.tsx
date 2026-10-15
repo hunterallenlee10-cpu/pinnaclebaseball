@@ -9,7 +9,7 @@ const base =
 const variants: Record<Variant, string> = {
   primary: "bg-sky text-night hover:text-night",
   ghost: "border border-chalk/30 text-chalk hover:border-chalk hover:text-night",
-  fire: "bg-fire text-white hover:text-night",
+  fire: "bg-[#c2321d] text-white hover:text-night",
 };
 
 /** The fill that wipes in from the left on hover. */

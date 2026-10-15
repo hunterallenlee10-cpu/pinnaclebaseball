@@ -1,6 +1,19 @@
 @import "tailwindcss";
 
 /*
+  Metric-matched fallback for the display face. Big Shoulders runs about 66% of Arial Bold's
+  width, so scaling Arial Bold to 66% keeps headlines from reflowing (layout shift) when the
+  web font swaps in. next/font cannot compute this automatically for Big Shoulders.
+*/
+@font-face {
+  font-family: "Display Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("LiberationSans-Bold"),
+    local("Helvetica Bold"), local("Helvetica-Bold");
+  font-weight: 100 900;
+  size-adjust: 66%;
+}
+
+/*
   Pinnacle Baseball design tokens.
   Colors come from the academy's logo: periwinkle "sky" (#91b3e0) and indigo (#2a2e6b),
   set on a deep night-navy field. The site is locked to this one dark theme on purpose:
@@ -21,7 +34,7 @@
   --color-fire: #e2452f;
   --color-ember: #ff8a3d;
 
-  --font-display: var(--font-big-shoulders), "Arial Narrow", system-ui, sans-serif;
+  --font-display: var(--font-big-shoulders), "Display Fallback", system-ui, sans-serif;
   --font-sans: var(--font-geist), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
@@ -29,6 +42,26 @@
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 
   --animate-marquee: marquee 40s linear infinite;
+  /* Entrance animations for above-the-fold content. Pure CSS so they start at first paint,
+     not after hydration, which keeps LCP fast. */
+  --animate-rise: rise 1.1s var(--ease-out-expo) both;
+  --animate-lift: lift 0.9s var(--ease-out-expo) both;
+  @keyframes rise {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes lift {
+    from {
+      transform: translateY(18px);
+    }
+    to {
+      transform: none;
+    }
+  }
   @keyframes dialog-in {
     from {
       opacity: 0;

@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
+import { useReducedMotion } from "@/components/hooks/useReducedMotion";
 import { List, X, Phone, ArrowUpRight } from "@phosphor-icons/react";
 import { LogoLockup } from "@/components/ui/Logo";
 import { ButtonLink } from "@/components/ui/Button";
@@ -44,7 +45,10 @@ export function SiteHeader() {
     };
     document.addEventListener("keydown", onKey);
     document.documentElement.style.overflow = "hidden";
+    // Move focus into the menu once it starts opening.
+    const t = window.setTimeout(() => document.querySelector<HTMLAnchorElement>("#mobile-menu a")?.focus(), 50);
     return () => {
+      window.clearTimeout(t);
       document.removeEventListener("keydown", onKey);
       document.documentElement.style.overflow = "";
     };
@@ -137,7 +141,6 @@ export function SiteHeader() {
                   >
                     <Link
                       href={item.href}
-                      autoFocus={i === 0}
                       onClick={() => setOpen(false)}
                       aria-current={(item.href === "/" ? pathname === "/" : isActive(item.href)) ? "page" : undefined}
                       className="display flex items-center justify-between py-3 text-[2.6rem] text-chalk/90 transition-colors hover:text-sky aria-[current=page]:text-sky"
@@ -149,7 +152,8 @@ export function SiteHeader() {
                 ))}
               </ul>
             </nav>
-            <div className="grid grid-cols-2 gap-px border-t border-chalk/10 bg-chalk/10">
+            {/* Phones already have the pinned call/book bar; this row serves tablets. */}
+            <div className="hidden grid-cols-2 gap-px border-t border-chalk/10 bg-chalk/10 sm:grid">
               <a href={site.phone.href} className="flex h-16 items-center justify-center gap-2 bg-night font-mono text-sm text-chalk">
                 <Phone size={18} weight="bold" aria-hidden /> Call us
               </a>

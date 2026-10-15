@@ -47,7 +47,11 @@ export function ProgramIndex({ programs }: { programs: Program[] }) {
                 aria-hidden
                 className="self-center text-chalk/30 transition-all duration-500 ease-out-expo group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-sky"
               />
-              <span className="relative col-span-3 mt-4 block aspect-[4/3] overflow-hidden lg:hidden">
+              <span
+                className={`relative col-span-3 mt-4 block overflow-hidden lg:hidden ${
+                  p.image.width > p.image.height ? "aspect-[16/9]" : "aspect-[4/5]"
+                }`}
+              >
                 <Image
                   src={p.image.src}
                   alt={p.image.alt}
@@ -55,6 +59,7 @@ export function ProgramIndex({ programs }: { programs: Program[] }) {
                   quality={70}
                   sizes="(max-width: 1024px) 100vw, 0px"
                   className="object-cover"
+                  style={{ objectPosition: p.image.position }}
                 />
               </span>
             </Link>
@@ -80,6 +85,7 @@ export function ProgramIndex({ programs }: { programs: Program[] }) {
                 quality={70}
                 sizes="(min-width: 1024px) 40vw, 0px"
                 className="object-cover"
+                style={{ objectPosition: current.image.position }}
               />
             </motion.div>
           </AnimatePresence>

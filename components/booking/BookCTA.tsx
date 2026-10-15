@@ -14,13 +14,13 @@ export function BookCTA({
   source: string;
   title?: string;
   defaultFocus?: string;
-  image?: { src: string; alt: string };
+  image?: { src: string; alt: string; position?: string };
 }) {
   return (
     <section aria-labelledby={`book-${source}`} className="relative overflow-hidden border-t border-chalk/8 bg-navy-2">
       <div className="grid lg:grid-cols-2">
         <div className="relative min-h-[320px] lg:min-h-[720px]">
-          <Image src={image.src} alt={image.alt} fill quality={70} sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <Image src={image.src} alt={image.alt} fill quality={70} sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" style={{ objectPosition: image.position }} />
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-navy-2 via-navy-2/10 to-transparent lg:bg-gradient-to-l" />
         </div>
         <Container className="flex flex-col justify-center py-16 sm:py-20 lg:max-w-none lg:px-16 xl:px-24">

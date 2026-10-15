@@ -165,7 +165,7 @@ export default function StaffPage() {
         </section>
       )}
 
-      <BookCTA source="staff" title="Train with Coach Stowe." image={{ src: "/images/lesson-mound.jpg", alt: "An instructor working with a young pitcher on the mound" }} />
+      <BookCTA source="staff" title="Train with Coach Stowe." image={{ src: "/images/lesson-mound.jpg", alt: "An instructor working with a young pitcher on the mound", position: "50% 0%" }} />
     </>
   );
 }

@@ -119,6 +119,12 @@ export function SiteFooter() {
             Est. {site.founded}, {site.address.area}, {site.address.regionName}
           </p>
         </div>
+        <p className="mt-3 text-xs text-haze">
+          Website by{" "}
+          <a href="https://www.leeenterprisesunlimited.com/" target="_blank" rel="noopener" className="transition-colors hover:text-chalk">
+            Lee Enterprises Unlimited
+          </a>
+        </p>
       </Container>
     </footer>
   );
